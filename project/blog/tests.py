@@ -18,6 +18,9 @@ class BlogTests(TestCase):
             author=self.user
         )
 
+    def test_get_absolute_url(self):
+        self.assertEqual(self.post.get_absolute_url(),'/blogposts/post/1/')
+
     def test_string_representation(self):
         post = BlogPost(title='A sample title')
         self.assertEqual(str(post),post.title)
@@ -39,3 +42,23 @@ class BlogTests(TestCase):
         self.assertEqual(resp.status_code,200)
         self.assertEqual(no_resp.status_code,404)
         self.assertTemplateUsed(resp,'blogpostdetial.html')
+
+    def test_post_create_view(self):
+        resp = self.client.post(reverse('blogpost_create'),{
+            'title':'New title',
+            'body':'New body',
+            'author':self.user,
+        })
+        self.assertEqual(resp.status_code,200)
+        self.assertContains(resp,'New title')
+        self.assertContains(resp,'New body')
+    
+    def test_post_update_view(self):
+        resp = self.client.post(reverse('blogpost_update',args='1'),{
+            'title':'Edited Title',
+            'body':'Edited Body'
+        })
+    
+    def test_post_delete(self):
+        resp = self.client.get(reverse('blogpost_delete',args='1'))
+        self.assertEqual(resp.status_code,200)

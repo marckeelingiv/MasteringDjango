@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class BlogPost(models.Model):
@@ -8,6 +9,10 @@ class BlogPost(models.Model):
         on_delete=models.CASCADE,
     )
     body=models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('blogpost_detail', args=[str(self.id)])
+    
 
     def __str__(self):
         return self.title

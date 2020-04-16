@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Are you sure you want to delete this post? ({{ blogpost.title }})</h2>
+<form action="" method="POST">{% csrf_token %}
+    <input type="submit" value="Yes" />
+</form>
+<a href="{% url 'blogpost_detail' blogpost.pk %}">I changed my mind</a>
+{% endblock content %}

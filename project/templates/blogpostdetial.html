@@ -5,4 +5,7 @@
     <h2>Title: {{ object.title}}</h2>
     <p>Author: {{ object.author }}</p>
     <p>Body: {{ object.body }}</p>
+
+    <a href="{% url 'blogpost_update' blogpost.pk %}">Edit Blog Post</a>
+    <a href="{% url 'blogpost_delete' blogpost.pk %}">Delete this Post</a>
 {% endblock content %}
