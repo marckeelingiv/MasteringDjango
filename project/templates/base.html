@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +8,51 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{% url 'home' %}">Home</a>||
-    <a href="{% url 'about' %}">About</a>||
-    <a href="{% url 'resume' %}">Resume</a>||
-    <a href="{% url 'post' %}">Post</a>||
-    <a href="{% url 'blogposts' %}">BlogPosts</a>||
-    <a href="{% url 'blogpost_create' %}">Create Blog Post</a>
+    {% block content_old %}
+    {% endblock content_old %}
+</body>
+</html> -->
+
+{% load static %}
+<html>
+  <head>
+    <title>Django blog</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400"\
+    rel="stylesheet">
+    <link href="{% static 'base.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div>
+      <header>
+        <div class="nav-left">
+          <h1><a href="{% url 'home' %}">Django blog</a></h1>
+        </div>
+        <div class="nav-left">
+            <h2><a href="{% url 'about' %}">About</a></h2>
+        </div>
+        <div class="nav-left">
+            <h2><a href="{% url 'resume' %}">Resume</a></h2>
+        </div>
+        <div class="nav-left">
+            <h2><a href="{% url 'post' %}">Post</a></h2>
+        </div>
+        <div class="nav-left">
+            <h2><a href="{% url 'blogposts' %}">BlogPosts</a></h2>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="nav-left">
+                <h2><a href="{% url 'blogpost_create' %}">+Create Blog Post+</a></h2>
+            </div>
+            <p>Hi {{ user.username }}!</p>
+            <p><a href="{% url 'logout' %}">Log out</a></p>
+        </header>
+        {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'login' %}">Log In</a>
+        </header>
+    {% endif %}
     {% block content %}
     {% endblock content %}
-</body>
+    </div>
+  </body>
 </html>
